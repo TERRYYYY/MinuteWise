@@ -10,9 +10,20 @@ class Pitch:
 
 
     def save_pitch(self):
-        Review.all_reviews.append(self)
+        Review.all_pitches.append(self)
 
 
     @classmethod
     def clear_pitch(cls):
         Pitch.all_pitches.clear()
+
+    @classmethod
+    def get_pitch(cls,id):
+
+        response = []
+
+        for pitch in cls.all_pitches:
+            if pitch.movie_id == id:
+                response.append(review)
+
+        return response

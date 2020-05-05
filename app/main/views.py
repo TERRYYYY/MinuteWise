@@ -3,6 +3,8 @@ from . import main
 # from .forms import PitchForm
 from ..models import Pitch
 from flask_login import login_required
+from flask import render_template,request,redirect,url_for,abort
+from ..models import Pitch, User
 
 @main.route('/')
 def index():
@@ -33,3 +35,11 @@ def new_pitch(id):
         db.session.commit()
 
     return render_template('new_pitch.html',pitch=pitch)
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user = user)

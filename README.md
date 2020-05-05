@@ -26,15 +26,15 @@ A user is able to:
 No known bugs
 
 ## Technologies Used
-Python
-Flask
-Postgres
-HTML
-CSS
+- Python
+- Flask
+- Postgres
+- HTML
+- CSS
 ## Support and contact details
 Email : kariuki.terry11@gmail.com
 
 ## License
-License used is [MIT License] (https://opensource.org/licenses/MIT)
+License used is [MIT License](https://choosealicense.com/licenses/mit/)
 
 Copyright (c) Kariuki Terry May 2020

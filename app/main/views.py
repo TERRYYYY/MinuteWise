@@ -8,6 +8,8 @@ from ..models import Pitch, User
 from .forms import ReviewForm,UpdateProfile
 from .. import db
 from .. import db,photos
+from flask_login import login_required, current_user
+from app.models import User,Pitch,Pitchcategory
 
 @main.route('/')
 def index():
@@ -30,7 +32,7 @@ def new_pitch(id):
         review = form.review.data
 
         # Updated review instance
-        new_pitch = Pitch(pitch_id=movie.id,category=category,description=pitch)
+        new_pitch = Pitch(pitch_id=pitch.id,category=category,description=pitch,user=current_user)
 
         # save review method
         new_pitch.save_pitch()

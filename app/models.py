@@ -47,7 +47,7 @@ class Pitch(db.Model):
         return f'User {self.name}'
 
 
-class PitchCategory:
+class Pitchcategory:
 
     __tablename__ = 'pitchescategory'
 

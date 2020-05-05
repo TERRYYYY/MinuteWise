@@ -5,11 +5,11 @@ from ..models import Pitch
 from flask_login import login_required
 from flask import render_template,request,redirect,url_for,abort
 from ..models import Pitch, User
-from .forms import ReviewForm,UpdateProfile
+# from .forms import PitchForm,UpdateProfile
 from .. import db
-from .. import db,photos
 from flask_login import login_required, current_user
 from app.models import User,Pitch,Pitchcategory
+import markdown2  
 
 @main.route('/')
 def index():
@@ -18,10 +18,10 @@ def index():
     '''
     title = 'Moment in Time'
 
-    search_pitch = request.args.get('pitch_query')
-    pitches= Pitch.get_all_pitches()  
+    # search_pitch = request.args.get('pitch_query')
+    # pitch= Pitch.get_all_pitches()  
 
-    return render_template('index.html', title = title, pitch= pitch)
+    return render_template('index.html', title = title)
 
 @main.route('/pitch', methods = ['GET','POST'])
 @login_required
@@ -78,3 +78,11 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/pitch/<int:id>')
+def single_pitch(id):
+    pitches=Pitchcategory.query.get(id)
+    if pitches is None:
+        abort(404)
+    format_pitches = markdown2.markdown(pitches.pitch_review,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('pitch.html',pitches = pitches,format_pitches=format_pitches)

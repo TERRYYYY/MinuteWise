@@ -3,9 +3,11 @@ from wtforms import StringField,PasswordField,SubmitField,BooleanField
 from wtforms.validators import Required,Email,EqualTo
 from ..models import User
 from wtforms import ValidationError
-# from email-validator import validate_email, EmailNotValidError
+# import email_validator
+
 
 class RegistrationForm(FlaskForm):
+
     email = StringField('Your Email Address',validators=[Required()])
     username = StringField('Enter your username',validators = [Required()])
     password = PasswordField('Password',validators = [Required(), EqualTo('password_confirm',message = 'Passwords must match')])
@@ -25,3 +27,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password',validators =[Required()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Sign In')
+
+
+
+# email = StringField('Your Email Address',validators=[Required(),Email()])

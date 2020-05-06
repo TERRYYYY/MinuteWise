@@ -1,7 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from . import main
 # from .forms import PitchForm
-from ..models import Pitch
 from flask_login import login_required
 from flask import render_template,request,redirect,url_for,abort
 from ..models import Pitch, User
@@ -9,6 +8,7 @@ from ..models import Pitch, User
 from .. import db
 from flask_login import login_required, current_user
 from app.models import User,Pitch
+from .forms import UpdateProfile, PitchForm, CommentForm
 import markdown2  
 
 @main.route('/')

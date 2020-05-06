@@ -6,9 +6,9 @@ from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return User.query.get((user_id))
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer,primary_key = True)
@@ -22,7 +22,7 @@ class User(db.Model):
     pitch_id = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
     comments = db.relationship('Comment' , backref = 'user', lazy = 'dynamic')
 
-    def __init__(self,username,password_hash,bio,profile_pic_path):
+    def __init__(self,email,username,password_hash,bio,profile_pic_path):
         self.email = email
         self.username = username
         self.password_hash = password_hash

@@ -1,4 +1,4 @@
-<!-- <div class="navbar navbar-inverse" role="navigation"> -->
+<div class="navbar navbar-inverse" role="navigation" style="padding: 15px;">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -8,20 +8,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> Moment in Time </a>
+            <a class="navbar-brand" href="/"> MinuteWise </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <!-- <li><a href="/">Home</a></li> -->
-                <i style="font-size:24px" class="fa" style="margin-left: 100px; margin-top: 200px;"><a href="/" style="margin-left: 70px;margin-top: 50px;">&#xf015;</i></a>
+                <i class="fa fa-home" aria-hidden="true" style="font-size: 25px;margin-top: 8px; margin-left: 100px;color: white;"><a href="/" style="color: white;margin-left: 10px;">Home</a></i>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                <li></li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
                 {% else %}
-                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                <i class="fa fa-sign-in" aria-hidden="true" style="font-size: 25px;margin-top: 15px;color: white;"><a href="{{url_for('auth.login')}}" style="color: white;margin-left: 10px;">Log in</a></i>
+                
                 {%endif%}
             </ul>
         </div>

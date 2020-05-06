@@ -1,6 +1,8 @@
 # Minute-Wise (Pitches)
 By Kariuki Terry
 
+Here's a [link](https://minutewise.herokuapp.com/) to my website
+
 ## Description
 A python-flask based application that encourages the wise use of every minute. Users get to post & vote on short & wise pitches.
 

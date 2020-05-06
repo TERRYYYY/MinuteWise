@@ -4,6 +4,7 @@ class Config:
     '''
     General configuration parent class
     '''
+    SECRET_KEY = 'cartoons'
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://terry:2002@localhost/minutewise'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -14,9 +15,6 @@ class Config:
     MAIL_PASSWORD = os.environ.get("incorrect")
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
-
-
-
 
 class ProdConfig(Config):
     '''

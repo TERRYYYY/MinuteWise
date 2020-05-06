@@ -1,14 +1,20 @@
-{% macro displayPitchList(category) %}
+{% macro displayPitchList(pitches) %}
 
-{% for item in category %}
-<li>{{ item.category}}</li>
+{% for pitch in pitches %}
+<div class="container">
+    <div class="row">
+        <div class="card">
+           {{pitch.category}}
+        </div>
+    </div>
+</div>
 {% endfor %}
 
 {% endmacro %}
 
-{% macro displayPitchCategory() %}
+{% macro displayPitchCategory(category) %}
 
-{% for review in pitch_list %}
+{% for pitch in pitches %}
 
 <div class="row">
 

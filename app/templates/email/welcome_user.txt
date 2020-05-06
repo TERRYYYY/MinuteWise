@@ -1,3 +1,6 @@
 Hello {{user.username}}
-Welcome to MinuteWise
+Welcome to MinuteWise.
+
 We have just seen you have signed up for our application and want to welcome you to the family. Please enjoy the pitches posted.
+
+Regards MinuteWise Team.

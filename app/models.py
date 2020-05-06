@@ -10,15 +10,26 @@ def load_user(user_id):
 
 class User(db.Model):
     __tablename__ = 'users'
+    
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
-    email = db.Column(db.String(255),unique = True,index = True)
+    email = db.Column(db.String(255))
+    # email = db.Column(db.String(255),unique = True,index = True)
     password_hash = db.Column(db.String(255))
-    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    pitchescategory = db.relationship('Pitchcategory',backref = 'user',lazy = "dynamic")
+    pitch_id = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
+    comments = db.relationship('Comment' , backref = 'user', lazy = 'dynamic')
+
+    def __init__(self,username,password_hash,bio,profile_pic_path):
+        self.email = email
+        self.username = username
+        self.password_hash = password_hash
+        self.bio = bio
+        self.profile_pic_path = profile_pic_path
+
+
 
     @property
     def password(self):
@@ -40,29 +51,31 @@ class Pitch(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'pitch',lazy="dynamic")
-    
+    user_id = db.Column(db.Integer , db.ForeignKey('users.id'))
+    # users = db.relationship('User',backref = 'pitch',lazy="dynamic")
+    category = db.Column(db.String(255), index = True)
+    description = db.Column(db.String(255), index = True)
+    upvotes = db.Column(db.Integer)
+    downvotes = db.Column(db.Integer)
+    comments = db.relationship('Comment' , backref = 'pitch', lazy = 'dynamic')
+
+    def save_pitch(self):
+        def save_review(self):
+            db.session.add(self)
+            db.session.commit()
+
+    @classmethod
+    def get_pitches(cls):
+        pitches = Pitch.query.all()
+        return pitches
 
     def __repr__(self):
         return f'User {self.name}'
 
-
-class Pitchcategory:
-
-    __tablename__ = 'pitchescategory'
+class Comment(db.Model):
+    __tablename__= 'comments'
 
     id = db.Column(db.Integer,primary_key = True)
-    pitches_id = db.Column(db.Integer)
-    piches_title = db.Column(db.String)
-    pitches_review = db.Column(db.String)
-    posted = db.Column(db.DateTime,default=datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-
-    def save_pitchescategory(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_pitchescategory(cls,id):
-        pitchescategory = Pitch.query.filter_by(pitch_id=id).all()
-        return pitchescategory
+    description = db.Column(db.String(255))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

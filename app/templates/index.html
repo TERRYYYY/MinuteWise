@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 
@@ -17,10 +19,73 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
 
-<body>
+<body> 
     {% block content %}
-    <h1>Pitch Category</h1>
-    {{ macro.displayPitchCategory}}
+    <!-- {{ macro.displayPitchList(pitches)}} -->
+    <div class="container">
+        <div class="jumbotron">
+            <h3 style="font-size: 37px;font-weight: bolder;">"Better three hours too soon than a minute too late."</h5>
+            <h5 style="font-size: 22px;">-- William Shakespear</h6>
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin-left: 500px;"><a href="/pitch" style="font-size: 20px; color:black;">Add Pitch</a></button>
+
+        <div class="row">
+            
+            <div class="card" style=" margin-left: 50px;">
+                <div class="col-md-6">
+
+                <div class="card-header">
+                    <h2 style="font-size: 40px;font-weight: bolder;  ">Poetry </h2>
+                </div>
+                <div class="card-body" style="height: 320px;border: 3px solid blueviolet;" >
+                    <p style="font-size: 18px; margin-left: 40px;">" Poetry is not a turning loose of emotion, but an escape from emotion; it is not the expression of personality, but an
+                    escape from personality. But, of course, only those who have personality and emotions know what it means to want to
+                    escape from these things. " 
+                    <br>
+                    <br>
+                    Posted by: Terry</p>
+                    <a href="/like" style="color: black;" ><i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i></a>
+                    <a href="/dislike" style="color: black;" ><i class="fa fa-thumbs-down" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i></a>
+                    <a href="/comment" style="color: black;"><i class="fa fa-comments" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i></a>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="card-header">
+                    <h2 style="font-size: 40px; font-weight: bolder;">Success</h2>
+                </div>
+                <div class="card-body" style="height: 320px;border: 3px solid blueviolet">
+                    <p style="font-size: 18px; margin-left: 40px;">" If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to
+                    keep moving forward." 
+                    <br>
+                    <br>
+                    Posted by: Terry</p>
+                    <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
+                    <i class="fa fa-thumbs-down" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i>
+                    <i class="fa fa-comments" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i>
+                </div>
+                
+                </div>
+                <div class="col-md-6"> 
+                <div class="card-header">
+                    <h2 style="font-size: 40px;font-weight: bolder;">Life</h2>
+                </div>
+                <div class="card-body" style="height: 320px;border: 3px solid blueviolet">
+                    <p style="font-size: 18px; margin-left: 40px;">" Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma – which is living with the
+                    results of other people’s thinking. ” 
+                    <br>
+                    <br>
+                    Posted by: Terry</p>
+                    <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
+                    <i class="fa fa-thumbs-down" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i>
+                    <i class="fa fa-comments" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 
     {% endblock%}
     

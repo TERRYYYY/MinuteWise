@@ -7,7 +7,7 @@ from ..models import Pitch, User
 # from .forms import PitchForm,UpdateProfile
 from .. import db
 from flask_login import login_required, current_user
-from app.models import User,Pitch
+from app.models import User,Pitch,Comment
 from .forms import UpdateProfile, PitchForm, CommentForm
 import markdown2  
 
@@ -16,31 +16,52 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'Welcome !!'
+    title = 'MinuteWise | Pitch'
 
     # search_pitch = request.args.get('pitch_query')
     # pitch= Pitch.get_all_pitches()  
 
     return render_template('index.html', title = title)
 
-@main.route('/pitch', methods = ['GET','POST'])
+
+@main.route("/pitch" ,methods=["GET", "POST"])
 @login_required
-def new_pitch():
+def pitch():
     form = PitchForm()
-    if form.validate_on_submit():
-        category = form.category.data
-        description = form.description.data
-        user_id = current_user
+    pitches = Pitch.query.all()
 
-        # Updated review instance
-        new_pitch = Pitch(pitch_id=pitch.id,category=category,description=description,user=current_user)
 
-        # save review method
-        new_pitch.save_pitch()
+    if request.method == "POST":
+        req = request.form
+        print(req)
+
+        pitch = req.get('pitch')
+        new_pitch = Pitch(description = pitch , user = current_user)
         db.session.add(new_pitch)
         db.session.commit()
+        pitches = Pitch.query.all()
 
-    return render_template('new_pitch.html',form = form )
+        
+    return render_template("new_pitch.html" ,pitches = pitches , form= form)
+
+# @main.route('/pitch', methods = ['GET','POST'])
+# @login_required
+# def new_pitch():
+#     form = PitchForm()
+#     if form.validate_on_submit():
+#         category = form.category.data
+#         description = form.description.data
+#         user_id = current_user
+
+#         # Updated review instance
+#         new_pitch=Pitch(pitch_id=pitch.id,category=category,description=description,user=current_user)
+
+#         # save review method
+#         new_pitch.save_pitch()
+#         db.session.add(new_pitch)
+#         db.session.commit()
+
+#     return render_template('new_pitch.html',form = form )
 
 
 @main.route('/user/<uname>')
@@ -90,22 +111,41 @@ def single_pitch(id):
     format_pitches = markdown2.markdown(pitches.pitch_review,extras=["code-friendly", "fenced-code-blocks"])
     return render_template('pitch.html',pitches = pitches,format_pitches=format_pitches)
 
-
-@main.route('/comment' ,methods=['POST', 'GET'])
+@main.route('/comment/<int:id>', methods=["GET", "POST"])
 @login_required
-def comment(pitch_id):
+def comment(id):
     form = CommentForm()
-    pitch = Pitch.query.get(pitch_id)
-    all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
-    if form.validate_on_submit():
-        comment = form.comment.data
-        pitch_id = pitch_id
-        user_id = current_user._get_current_object().id
-        new_comment = Comment(
-            comment=comment, user_id=user_id, pitch_id=pitch_id)
-        new_comment.save_c()
-        return redirect(url_for('.comment', pitch_id=pitch_id))
-    return render_template('comment.html', form=form, pitch=pitch, all_comments=all_comments)
+    comments = Comment.query.filter_by(pitch_id = id)
+    post = Pitch.query.filter_by(id=id).first()
+    if request.method == 'POST':
+            req = request.form
+            print(req)
+
+            pitch = req.get('comment')
+            comment = Comment(description = pitch , user = current_user , pitch = post)
+
+            db.session.add(comment)
+            db.session.commit()
+   
+    title = 'Comments'
+    return render_template("comment.html" ,title = title , pitch = post , form= form, comments = comments)
+
+
+# @main.route('/comment' ,methods=['POST', 'GET'])
+# @login_required
+# def comment(pitch_id):
+#     form = CommentForm()
+#     pitch = Pitch.query.get(pitch_id)
+#     all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+#     if form.validate_on_submit():
+#         comment = form.comment.data
+#         pitch_id = pitch_id
+#         user_id = current_user._get_current_object().id
+#         new_comment = Comment(
+#             comment=comment, user_id=user_id, pitch_id=pitch_id)
+#         new_comment.save_c()
+#         return redirect(url_for('main.comment', pitch_id=pitch_id))
+#     return render_template('comment.html', form=form, pitch=pitch, all_comments=all_comments)
 # <int:pitch_id>
 
 

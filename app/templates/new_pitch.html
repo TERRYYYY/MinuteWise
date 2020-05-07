@@ -1,22 +1,54 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Pitch{% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-4">
+            <form action=" {{url_for('main.pitch')}} " method="POST">
+            
+                <div class="form-group">
+            
+                    <input type="text" class="form-control" id="pitch" name="pitch" placeholder="whats on your mind?" required>
+                </div>
+                <button type="submit" class="btn btn-primary">POST</button>
+            
+            </form>
+            </div>
+            <br><br><br>
+            <div class="row">
+                {% for pitch in pitches %}
+                <div class="col-md-6">
+            
+            
+                    <blockquote>
+                        <p>{{ pitch.description }}</p>
+                        <footer>posted by: <cite title="Source Title">{{ pitch.user.username }}</cite></footer>
+                    </blockquote>
+                    <a href="{{url_for('main.comment', id = pitch.id)}}"><i class="fa fa-comments" aria-hidden="true" style="font-size: 30px;margin-left: 50px;"></i></a> <span class="tab"
+                        style="display:inline-block ; margin-left:40px"></span>
+                    <button type="button" class="btn btn-light"> <i class="fa fa-thumbs-up"
+                            style="font-size:14px; color:green"></i></button><span class="tab"
+                        style="display:inline-block ; margin-left:40px"></span>
+            
+                    <button type="button" class="btn btn-light"><i class="fa fa-thumbs-down"
+                            style="font-size:14px; color:rgb(182, 20, 60)"></i></button><span class="tab"
+                        style="display:inline-block ; margin-left:40px"></span>
+            
+                    <br><br><br>
+            
+                </div>
+                {% endfor %}
+            
+            
+            </div>
+            <!-- {{ wtf.quick_form(form) }}
+            {{simplemde.load}} -->
 
-        {{ wtf.quick_form(PitchForm) }}
-        {{simplemde.load}}
     </div>
-    <div class="card">
-        <form>
-            <label for="pitch">Post a pitch</label>
-            <input type="text" placeholder="Say something...">
-            <label for="category">Category Of Pitch</label>
-            <input type="text" placeholder="ie success,love">
-        </form>
-    </div>
-
 </div>
+
+
 
 {% endblock %}

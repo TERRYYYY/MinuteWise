@@ -18,8 +18,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
-                <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-                <li></li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                <a href="{{url_for('main.profile',uname=current_user.username)}}" style="color: white; margin-right: 60px;"><i class="fa fa-user" style="font-size: 31px;"  aria-hidden="true"></i></a>
+                <a href="{{url_for('auth.logout')}}" style="color: white; font-size: 22px;">Sign out</a>
                 {% else %}
                 <i class="fa fa-sign-in" aria-hidden="true" style="font-size: 25px;margin-top: 15px;color: white;"><a href="{{url_for('auth.login')}}" style="color: white;margin-left: 10px;">Log in</a></i>
                 
